@@ -46,8 +46,9 @@
             android:text="ADD" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listview"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:id="@+id/rvlist"
         android:layout_height="match_parent" />
+
 </LinearLayout>

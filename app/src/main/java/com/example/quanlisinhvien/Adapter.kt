@@ -6,34 +6,39 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
-class Adapter(private val list : MutableList<studentModel>) : BaseAdapter() {
-    override fun getCount(): Int {
+class Adapter(private val list : MutableList<studentModel>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val name = itemView.findViewById<TextView>(R.id.textView1)
+        val mssv = itemView.findViewById<TextView>(R.id.textView2)
+        val imageButton = itemView.findViewById<ImageButton>(R.id.imageButton)
+
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        return MyViewHolder(layout)
+    }
+
+    override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun getItem(p0: Int): Any {
-        return list[p0]
-    }
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val student = list[position]
+        holder.name.text = student.name
+        holder.mssv.text = student.mssv
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
-    }
-
-    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val view = p1 ?: LayoutInflater.from(p2?.context).inflate(R.layout.item_layout, p2, false)
-        val name = view.findViewById<TextView>(R.id.textView1)
-        val mssv = view.findViewById<TextView>(R.id.textView2)
-        val imageButton = view.findViewById<ImageButton>(R.id.imageButton)
-
-        name.setText(list[p0].name)
-        mssv.setText(list[p0].mssv)
-
-        imageButton.setOnClickListener{
-            list.removeAt(p0)
+        holder.imageButton.setOnClickListener{
+            list.removeAt(position)
+            holder.name.text = ""
+            holder.mssv.text = ""
             notifyDataSetChanged()
         }
-        return view
+
     }
+
 
 }

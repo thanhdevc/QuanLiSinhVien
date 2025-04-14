@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quanlisinhvien.databinding.ActivityMainBinding
 
 private lateinit var binding: ActivityMainBinding
@@ -25,8 +26,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        binding.rvlist.layoutManager = LinearLayoutManager(this)
         adapter = Adapter(list)
-        binding.listview.adapter = adapter
+        binding.rvlist.adapter = adapter
+
+
 
         binding.button.setOnClickListener{
             list.add(studentModel(binding.editTextName.text.toString(), binding.editTextMSSV.text.toString()))
